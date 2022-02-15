@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+
+{%extends 'authapp/base1.html'%}
+{%load static%}
+
+
+{% block body_block %}
 
 <div class="container mt-5">
     <div class="row">
@@ -39,7 +40,7 @@
                     <button type="button" class="btn btn-secondary"><a class="multisignup"
                                                                        href="{% url 'sellersignup'%}">Seller Account</a>
                     </button>
-                    .
+
                 </p>
 
             </div>
@@ -50,6 +51,4 @@
 </div>
 
 
-
-</body>
-</html>
+{%endblock%}

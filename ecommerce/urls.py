@@ -24,8 +24,9 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('authapp/', include('authapp.urls')),
+    path('seller/', include('seller.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/seller/', views.SellerSignUpView.as_view(), name='sellersignup'),
     path('accounts/signup/customer/', views.CustomerSignUpView.as_view(), name='customersignup'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,9 @@
 
 from django.contrib.auth import login
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views.generic import (CreateView, TemplateView)
 from authapp.forms import SellerSignUpForm, CustomerSignUpForm
+from authapp.models import User
 
 
 class MultiSignup(TemplateView):
@@ -13,6 +13,8 @@ class MultiSignup(TemplateView):
 class Home(TemplateView):
     template_name = 'authapp/base.html'
 
+class Sellerhome(TemplateView):
+    template_name = "authapp/sellerhome.html"
 
 class SellerSignUpView(CreateView):
     model = User
@@ -26,7 +28,7 @@ class SellerSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('mybooks')
+        return redirect('sellerhome')
 
 class CustomerSignUpView(CreateView):
     model = User
@@ -46,7 +48,7 @@ class CustomerSignUpView(CreateView):
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_seller:
-            return redirect('sellerhome')
+            return redirect('myproducts')
         else:
             return redirect('custindex')
     return render(request, 'authapp/base.html')

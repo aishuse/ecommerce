@@ -1,22 +1,22 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+
+{%extends 'authapp/base1.html'%}
+{%load static%}
+
+
+{% block body_block %}
 
  <div class="col-md-6 multisignup mb-5">
 
-               <h2>Sign up as a {{ user_type }}</h2>
-      <form method="post" novalidate>
+     <h2>Sign up as a {{ user_type }}</h2>
+      <form method="post" >
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         {{ form.as_p }}
         <button type="submit" class="btn btn-success">Sign up</button>
       </form>
 
-        </div>
+ </div>
 
-</body>
-</html>
+{%endblock%}
