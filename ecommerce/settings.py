@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authapp',
     'seller',
-    'admins'
+    'admins',
+    'customer',
+    'stripeapp'
 
 ]
 
@@ -153,3 +155,6 @@ LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'
 
+
+STRIPE_SECRET_KEY='sk_test_51KFL3ySAzjfwOsg9tg79akVTZfftrqlhgUgzmPAKiVFWRVZJF9LmZMx0yBzavIoAJS25qw2Sw9rPiYM6uqimYhWN00ylHplYwJ'
+STRIPE_PUBLISHABLE_KEY='pk_test_51KFL3ySAzjfwOsg95UpQibhhYe3Kbfg3gGUNkshtVBJ4fFfp2NzQXLvYTEOzqrTbC0CXNsSztKraEP6BPH5X0Mqt00mGg3Fmxc'

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from seller.forms import ProductAddForm, ProductStockForm
 from seller.models import Product, ProductStock
@@ -46,3 +46,40 @@ class MyProducts(ListView):
 
     def get_queryset(self):
         return Product.objects.filter(user=self.request.user)
+
+
+class ProductDetails(DetailView):
+    model = Product
+    template_name = 'seller/product_detail.html'
+    context_object_name = 'products'
+
+
+class ProductUpdate(UpdateView):
+    model = Product
+    template_name = 'seller/product_update.html'
+    form_class = ProductAddForm
+    success_url = '/seller/myproducts'
+
+
+class ProductDelete(DeleteView):
+    model = Product
+    template_name = 'seller/delete.html'
+    success_url = '/seller/myproducts'
+
+
+class OutofStock(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'seller/outofstock.html'
+
+    def get_queryset(self):
+        return Product.objects.filter(user=self.request.user, stock=0)
+
+class StockView(ListView):
+    model = ProductStock
+    template_name = 'seller/stock_history.html'
+    context_object_name = 'stocks'
+
+    def get_queryset(self):
+        return ProductStock.objects.filter(user=self.request.user)
+    
