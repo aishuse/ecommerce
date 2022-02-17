@@ -28,7 +28,7 @@ class SellerSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('sellerhome')
+        return redirect('myproducts')
 
 class CustomerSignUpView(CreateView):
     model = User
@@ -42,7 +42,7 @@ class CustomerSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('custindex')
+        return redirect('products')
 
 
 def home(request):
@@ -50,5 +50,5 @@ def home(request):
         if request.user.is_seller:
             return redirect('myproducts')
         else:
-            return redirect('custindex')
+            return redirect('products')
     return render(request, 'authapp/base.html')

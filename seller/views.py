@@ -1,9 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView, TemplateView
 
-from seller.forms import ProductAddForm, ProductStockForm
+from customer.models import Purchase
+from seller.forms import ProductAddForm, ProductStockForm, OrderUpdateForm
 from seller.models import Product, ProductStock
 
 
@@ -82,4 +84,46 @@ class StockView(ListView):
 
     def get_queryset(self):
         return ProductStock.objects.filter(user=self.request.user)
-    
+
+class ViewOrders(TemplateView):
+    model = Purchase
+    template_name = "seller/orders.html"
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        count = self.model.objects.filter(status='orderplaced', seller=self.request.user).count()
+        context['order_count'] = count
+        context['orders'] = self.model.objects.filter(status='orderplaced', seller=self.request.user)
+
+        dispatch = self.model.objects.filter(status='dispatch', seller=self.request.user)
+        context['dispatch'] = dispatch
+        context['dispatch_count'] = dispatch.count()
+
+        intransit = self.model.objects.filter(status='intransit', seller=self.request.user)
+        context['intransit'] = intransit
+        context['intransit_count'] = intransit.count()
+
+        delivered = self.model.objects.filter(status='delivered', seller=self.request.user)
+        context['delivered'] = delivered
+        context['delivered_count'] = delivered.count()
+
+        ordercancelled = self.model.objects.filter(status='ordercancelled', seller=self.request.user)
+        context['ordercancelled'] = ordercancelled
+        context['ordercancelled_count'] = ordercancelled.count()
+        return context
+
+
+class ViewSingleCustomer(DetailView):
+    model = Purchase
+    template_name = "seller/customer_order_detail.html"
+    context_object_name = "order"
+
+
+class OrderUpdateView(UpdateView):
+    model = Purchase
+    template_name = 'seller/orderupdate.html'
+    form_class = OrderUpdateForm
+    success_url = reverse_lazy("customerorders")
+
+
+

@@ -1,4 +1,6 @@
 from django import forms
+
+from customer.models import Purchase
 from .models import Product, ProductStock
 
 
@@ -30,3 +32,13 @@ class ProductStockForm(forms.ModelForm):
         # not expect, user among the fields.
         super().__init__(*args, **kwargs)
         self.fields['product'].queryset = Product.objects.filter(user=user)
+
+
+class OrderUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Purchase
+        fields = ['status', 'expected_delivery']
+        widgets = {
+            "status": forms.Select(attrs={"class": "form-select"}),
+            "expected_delivery": forms.DateInput(attrs={"type": "date"}),
+        }
