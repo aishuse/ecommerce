@@ -278,13 +278,13 @@ margin-top : 5px;
 
 body{
 
-  background-image: url("https://images2.alphacoders.com/261/thumb-1920-26102.jpg");
-
+  background-image: url("https://www.pngkey.com/png/full/59-591261_la-la-land-sky-background.png");
+background-repeat:no-repeat;
     background-attachment: fixed;
 
 }
 .navbarTransparent {
-background-color: rgb(59, 29, 24);
+background-color: rgb(19,16,190);
 
 
 }
@@ -329,12 +329,12 @@ background-color: rgb(59, 29, 24);
   border-top-left-radius: 7rem;
   border-bottom-left-radius: 7rem;
   border-bottom-right-radius: 7rem;
-  box-shadow: 0 8px 32px 0 rgba(18, 174, 232, 0.17);
+  box-shadow: 0 8px 32px 0 rgba(18, 50, 100, 0.17);
   font-size: 18px;
   font-weight: 600;
   font-family: "Lato", sans-serif;
   padding: 5px 16px;
-  background: -webkit-linear-gradient(rgb(247, 19, 255), rgb(18, 174, 232));
+  background: -webkit-linear-gradient(rgb(25, 19, 12), rgb(18, 74, 150));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

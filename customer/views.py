@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 
 from django.views.generic import TemplateView, ListView, DetailView
 
+from admins.models import Category
 from customer.models import Cart, Address, Purchase
 from ecommerce import settings
 from seller.models import Product
@@ -176,3 +177,23 @@ class MyOrders(ListView):
         queryset = super().get_queryset()
         queryset = self.model.objects.filter(user=self.request.user)
         return queryset
+
+
+class ListCategory(ListView):
+    model = Category
+    template_name ='customer/categorylist.html'
+    context_object_name = 'category'
+
+
+class Categories(ListView):
+    model = Category
+    template_name = 'customer/categorydetail.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        obj = Category.objects.get(pk=self.kwargs['pk'])
+        cat = obj.category.all()
+        context['cat'] = cat
+        context['obj'] = obj
+        return context
