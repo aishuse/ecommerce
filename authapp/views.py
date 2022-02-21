@@ -47,7 +47,9 @@ class CustomerSignUpView(CreateView):
 
 def home(request):
     if request.user.is_authenticated:
-        if request.user.is_seller:
+        if request.user.is_superuser:
+            return redirect('adminhome')
+        elif request.user.is_seller:
             return redirect('myproducts')
         else:
             return redirect('products')

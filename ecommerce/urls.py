@@ -29,6 +29,8 @@ urlpatterns = [
                   path('customer/', include('customer.urls')),
                   path('stripeapp/', include('stripeapp.urls')),
 
+                  path('admins/', include('admins.urls')),
+
                   path('accounts/', include('django.contrib.auth.urls')),
                   path('accounts/signup/seller/', views.SellerSignUpView.as_view(), name='sellersignup'),
                   path('accounts/signup/customer/', views.CustomerSignUpView.as_view(), name='customersignup'),

@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+
+{%extends 'admins/adminhome.html'%}
+
+{%load static%}
+
+
+{% block body_block %}
+
+<div class="container mt-5 ms-5">
+
+    <h1> CATEGORIES</h1>
+
+
+    <ol>
+         {%for category in categories%}
+
+        <li class="mt-4 ps-3 " style="font-size:25px">
+            {{category.name}}
+
+        </li>
+        {%endfor%}
+    </ol>
+
+</div>
+
+
+{%endblock%}
