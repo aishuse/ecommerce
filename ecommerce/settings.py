@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'seller',
     'admins',
     'customer',
-    'stripeapp'
+    'stripeapp',
+    'api',
+    'rest_framework',
+    'rest_framework.authtoken',
 
 ]
 
@@ -158,7 +161,16 @@ LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'
 
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 
 django_heroku.settings(locals())
+

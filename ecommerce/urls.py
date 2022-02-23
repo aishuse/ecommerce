@@ -20,6 +20,10 @@ from django.conf.urls.static import static
 from django.views.static import serve
 
 from authapp import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
                   path('', views.home, name='home'),
@@ -30,11 +34,13 @@ urlpatterns = [
                   path('stripeapp/', include('stripeapp.urls')),
 
                   path('admins/', include('admins.urls')),
-
+                  path('api/', include('api.urls')),
                   path('accounts/', include('django.contrib.auth.urls')),
                   path('accounts/signup/seller/', views.SellerSignUpView.as_view(), name='sellersignup'),
                   path('accounts/signup/customer/', views.CustomerSignUpView.as_view(), name='customersignup'),
                   re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
                   re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+                  path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+                  path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
