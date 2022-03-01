@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-import django_heroku
+# import django_heroku
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,11 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!xf5%ddt8#x@g9=z3yk%n$w$!)b&8)i#d3dy(8o0(dc-5^&w+n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'aiswaryaecommerce.herokuapp.com/']
+# ALLOWED_HOSTS = ['127.0.0.1', 'aiswaryaecommerce.herokuapp.com/']   3.83.40.97
 
-
+ALLOWED_HOSTS = ['3.83.40.97']
 
 # Application definition
 
@@ -172,5 +172,5 @@ REST_FRAMEWORK = {
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
