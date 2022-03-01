@@ -29,9 +29,7 @@ DEBUG = False
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'aiswaryaecommerce.herokuapp.com/']   3.83.40.97
 
-ALLOWED_HOSTS = ['3.83.40.97']
-
-# Application definition
+ALLOWED_HOSTS = ['+']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
