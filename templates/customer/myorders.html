@@ -30,10 +30,16 @@
 
                         <li class="list-group-item list-group-item-primary"><span style="color:red;">Sorry...Your order got cancelled. Refund will be initiated.</span>
                         </li>
+                        {%elif order.status == "pending" %}
+
+                        <li class="list-group-item list-group-item-primary"><span style="color:red;">You have not made payment yet...make payment to place the order</span>
+                        </li>
                         {%else%}
                         <li class="list-group-item list-group-item-primary"><span>Expected_delivery : </span>&nbsp;{{order.expected_delivery}}
                         </li>
                         {%endif%}
+
+
                     </ul>
                 </div>
             </div>

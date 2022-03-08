@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 # import django_heroku
-from decouple import config
+# from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,11 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!xf5%ddt8#x@g9=z3yk%n$w$!)b&8)i#d3dy(8o0(dc-5^&w+n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-# ALLOWED_HOSTS = ['127.0.0.1', 'aiswaryaecommerce.herokuapp.com/']   3.83.40.97
+# ALLOWED_HOSTS = ['127.0.0.1', 'aiswaryaecommerce.herokuapp.com/']
 
-ALLOWED_HOSTS = ['+']
+# ALLOWED_HOSTS = ['+']
+
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,14 +40,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sendemail',
+
     'authapp',
     'seller',
     'admins',
     'customer',
     'stripeapp',
-    'api',
-    'rest_framework',
-    'rest_framework.authtoken',
+    'django_celery_results',
+
+    # 'api',
+    # 'rest_framework',
+    # 'rest_framework.authtoken',
+
 
 ]
 
@@ -178,3 +185,25 @@ STRIPE_PUBLISHABLE_KEY='pk_test_51KFL3ySAzjfwOsg95UpQibhhYe3Kbfg3gGUNkshtVBJ4fFf
 
 # django_heroku.settings(locals())
 
+
+# CELERY SETTINGS
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
+CELERY_RESULT_BACKEND = 'django-db'
+
+
+#CELERY BEAT
+# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# SMTP Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER ='booklandz911@gmail.com'
+EMAIL_HOST_PASSWORD = "zrrlxdirzbmdbloo"
+DEFAULT_FROM_EMAIL = 'Celery <booklandz911@gmail.com>'

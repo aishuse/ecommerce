@@ -7,7 +7,7 @@
     <div class="row mt-5">
         <div class="col-9">
 
-                        {% for d in data %}
+            {% for d in data %}
 
 
             <div class="row ">
@@ -21,11 +21,11 @@
 
                 </div>
                 <div class="col-3 ml-1 mt-2 mb-2">
-                  
+
                 </div>
             </div>
             <div style="height:50px;"></div>
-                        {% endfor %}
+            {% endfor %}
 
         </div>
 
@@ -35,13 +35,13 @@
                     <h5 class="card-title">Deliver to:</h5>
                     <p class="card-text">{{address}}</p>
                     <hr>
-                    <h4 style="color:red;"><b>Total  :</b><br> &#8377; {{total}}</h4>
+                    <h4 style="color:red;"><b>Total :</b><br> &#8377; {{total}}</h4>
                 </div>
             </div>
 
-             <div class="mb-5 mt-2">
-        <a href="{% url 'payment-gateway' %}" class="btn btn-warning" >Proceed to Checkout </a>
-    </div>
+            <div class="mb-5 mt-2">
+                <a href="{% url 'payment-gateway' %}" class="btn btn-warning">Proceed to Checkout </a>
+            </div>
         </div>
     </div>
 
