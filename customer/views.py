@@ -1,30 +1,38 @@
 from datetime import datetime, timedelta
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 
 from django.views.generic import TemplateView, ListView, DetailView
 
 from admins.models import Category
+from authapp.decorators import customer_required
 from customer.models import Cart, Address, Purchase
 from ecommerce import settings
 from seller.models import Product
 
+
+@method_decorator([login_required, customer_required], name='dispatch')
 class CustHome(TemplateView):
     template_name = 'customer/index.html'
 
 
+@method_decorator([login_required, customer_required], name='dispatch')
 class Products(ListView):
     model = Product
     template_name = 'customer/product_list.html'
     context_object_name = 'products'
 
 
+@method_decorator([login_required, customer_required], name='dispatch')
 class ProductDetails(DetailView):
     model = Product
     template_name = 'customer/product_detail.html'
     context_object_name = 'products'
 
 
+@method_decorator([login_required, customer_required], name='dispatch')
 class AddToCart(TemplateView):
     model = Cart
 
@@ -59,6 +67,7 @@ def cart_minus(request, *args, **kwargs):
     return redirect('mycart')
 
 
+@method_decorator([login_required, customer_required], name='dispatch')
 class ViewMyCart(TemplateView):
     model = Cart
     template_name = 'customer/mycart.html'
@@ -81,6 +90,7 @@ class ViewMyCart(TemplateView):
         return render(request, self.template_name, self.context)
 
 
+@method_decorator([login_required, customer_required], name='dispatch')
 class RemoveFromCart(TemplateView):
     model = Cart
 
@@ -92,6 +102,8 @@ class RemoveFromCart(TemplateView):
         return redirect('mycart')
 
 
+# @method_decorator([login_required, customer_required], name='dispatch')
+@login_required()
 def CheckoutView(request):
     address = Address.objects.filter(user=request.user)
     addr = []
@@ -126,6 +138,7 @@ def CheckoutView(request):
             new_address.save()
             return redirect("checkout")
     return render(request, 'customer/checkout.html', context)
+
 
 
 def placeorder(request, *args, **kwargs):
@@ -167,7 +180,7 @@ def placeorder(request, *args, **kwargs):
     return render(request, 'customer/order_summary.html', {'data': data, 'address': ad, 'total': total})
 
 
-
+@method_decorator([login_required, customer_required], name='dispatch')
 class MyOrders(ListView):
     model = Purchase
     template_name = 'customer/myorders.html'
@@ -179,12 +192,14 @@ class MyOrders(ListView):
         return queryset
 
 
+@method_decorator([login_required, customer_required], name='dispatch')
 class ListCategory(ListView):
     model = Category
     template_name ='customer/categorylist.html'
     context_object_name = 'category'
 
 
+@method_decorator([login_required, customer_required], name='dispatch')
 class Categories(ListView):
     model = Category
     template_name = 'customer/categorydetail.html'

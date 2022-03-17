@@ -1,14 +1,18 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView, TemplateView
 
+from authapp.decorators import seller_required
 from customer.models import Purchase
 from seller.forms import ProductAddForm, ProductStockForm, OrderUpdateForm
 from seller.models import Product, ProductStock
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class ProductAdd(CreateView):
     model = Product
     template_name = 'seller/product_create.html'
@@ -21,6 +25,7 @@ class ProductAdd(CreateView):
         return super(ProductAdd, self).form_valid(form)
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class StockAdd(CreateView):
     model = ProductStock
     template_name = 'seller/stock.html'
@@ -41,6 +46,7 @@ class StockAdd(CreateView):
         return super(StockAdd, self).form_valid(form)
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class MyProducts(ListView):
     model = Product
     template_name = 'seller/my_products.html'
@@ -50,12 +56,14 @@ class MyProducts(ListView):
         return Product.objects.filter(user=self.request.user)
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class ProductDetails(DetailView):
     model = Product
     template_name = 'seller/product_detail.html'
     context_object_name = 'products'
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class ProductUpdate(UpdateView):
     model = Product
     template_name = 'seller/product_update.html'
@@ -63,12 +71,14 @@ class ProductUpdate(UpdateView):
     success_url = '/seller/myproducts'
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class ProductDelete(DeleteView):
     model = Product
     template_name = 'seller/delete.html'
     success_url = '/seller/myproducts'
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class OutofStock(ListView):
     model = Product
     context_object_name = 'products'
@@ -77,6 +87,8 @@ class OutofStock(ListView):
     def get_queryset(self):
         return Product.objects.filter(user=self.request.user, stock=0)
 
+
+@method_decorator([login_required, seller_required], name='dispatch')
 class StockView(ListView):
     model = ProductStock
     template_name = 'seller/stock_history.html'
@@ -85,6 +97,8 @@ class StockView(ListView):
     def get_queryset(self):
         return ProductStock.objects.filter(user=self.request.user)
 
+
+@method_decorator([login_required, seller_required], name='dispatch')
 class ViewOrders(TemplateView):
     model = Purchase
     template_name = "seller/orders.html"
@@ -113,12 +127,14 @@ class ViewOrders(TemplateView):
         return context
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class ViewSingleCustomer(DetailView):
     model = Purchase
     template_name = "seller/customer_order_detail.html"
     context_object_name = "order"
 
 
+@method_decorator([login_required, seller_required], name='dispatch')
 class OrderUpdateView(UpdateView):
     model = Purchase
     template_name = 'seller/orderupdate.html'
